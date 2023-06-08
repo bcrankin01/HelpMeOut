@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "775106845197",
+    "firebase_url": "https://riptide-29b65-default-rtdb.firebaseio.com",
+    "project_id": "riptide-29b65",
+    "storage_bucket": "riptide-29b65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775106845197:android:501010f63affdd1831d344",
+        "android_client_info": {
+          "package_name": "com.example.riptide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDABOeYXnMkOJpHqt41BivqJbv9lOZL5tU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775106845197:android:72bc9364f6dc9c2f31d344",
+        "android_client_info": {
+          "package_name": "com.example.riptidejc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDABOeYXnMkOJpHqt41BivqJbv9lOZL5tU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

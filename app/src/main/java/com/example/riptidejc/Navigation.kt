@@ -34,5 +34,10 @@ fun Navigation(
         ) {
             NewQuestionScreen()
         }
+        composable(
+            route = Screen.StudentFeedScreen.route
+        ) {
+            StudentFeedScreen(navController)
+        }
     }
 }

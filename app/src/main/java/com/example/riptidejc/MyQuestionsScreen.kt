@@ -68,6 +68,7 @@ fun MyQuestionsScreen(
                     imageRes = R.drawable.ic_launcher_foreground,
                     questionHeader = question.second.header.toString(),
                     questionBody = question.second.body.toString(),
+                    status = question.second.complete,
                     onClick = {
                         Log.d("QuestionOnClick", "Hit: ${question.second.header.toString()}")
                         navController.navigate(Screen.ViewQuestionScreen.route + "/${question.first}")
@@ -93,6 +94,7 @@ fun MyQuestionsScreen(
 fun CustomCard(imageRes: Int,
                questionHeader: String,
                questionBody: String,
+               status: String,
                onClick: () -> Unit
 ) {
     Card(
@@ -130,6 +132,21 @@ fun CustomCard(imageRes: Int,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+                Text(
+                    text = status,
+                    color = Color.Black,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier
+                        .background(
+                            when (status) {
+                                "Pending Tutor" -> Color.Yellow
+                                "Pending User Acceptance" -> Color.Red
+                                "In Progress" -> Color.Green
+                                else -> Color.Transparent
+                            }
+                        )
+                )
+
             }
         }
     }

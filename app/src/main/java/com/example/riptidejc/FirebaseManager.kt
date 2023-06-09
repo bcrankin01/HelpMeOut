@@ -71,7 +71,7 @@ class FirebaseManager {
 
     fun postQuestion(course: String, title: String, body: String) {
 
-        val questionData = Question(title, body, course, currentUser?.uid, false)
+        val questionData = Question(title, body, course, currentUser?.uid)
         database.child("questions").push().setValue(questionData)
     }
 

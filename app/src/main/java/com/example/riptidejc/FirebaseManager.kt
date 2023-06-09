@@ -71,26 +71,27 @@ class FirebaseManager {
 
     fun postQuestion(course: String, title: String, body: String) {
 
-        val questionData = Question(title, body, course, currentUser?.uid, false)
+        val questionData = Question(title, body, course, currentUser?.uid)
         database.child("questions").push().setValue(questionData)
     }
 
     interface GetQuestionsByUserListener {
-        fun onSuccess(questions: List<Question>)
+        fun onSuccess(questions: List<Pair<String,Question>>)
         fun onError(databaseError: DatabaseError)
     }
 
     fun getQuestionsByUser(listener: GetQuestionsByUserListener) {
-        val questionList = mutableListOf<Question>()
+        val questionList = mutableListOf<Pair<String,Question>>()
 
         val questionQuery = database.child("questions").orderByChild("user").equalTo(currentUser?.uid)
         questionQuery.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (questionSnapshot in dataSnapshot.children) {
                     val question = questionSnapshot.getValue(Question::class.java)
+                    val questionId = questionSnapshot.key.toString()
                     Log.d("GetQuestionsByUser", "Hit question")
                     if (question != null) {
-                        questionList.add(question)
+                        questionList.add(Pair(questionId, question))
                     }
                 }
                 listener.onSuccess(questionList)
@@ -206,6 +207,30 @@ class FirebaseManager {
             }
         })
     }
+
+    interface GetQuestionByIdListener {
+        fun onSuccess(question: Question)
+        fun onError(databaseError: DatabaseError)
+    }
+
+    fun getQuestionById(questionId: String, listener: GetQuestionByIdListener) {
+        val database = FirebaseDatabase.getInstance()
+        val questionsRef = database.getReference("questions")
+
+        questionsRef.child(questionId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val question = snapshot.getValue(Question::class.java)
+                if (question != null) {
+                    listener.onSuccess(question)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                listener.onError(error)
+            }
+        })
+    }
+
 
 
     fun addStudentsToCourse(emailList: ArrayList<String>, courseId: String) {

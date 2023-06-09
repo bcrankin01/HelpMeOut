@@ -6,4 +6,5 @@ sealed class Screen(val route: String) {
     object MyQuestionsScreen: Screen("myquestions_screen")
     object NewQuestionScreen: Screen("newquestion_screen")
     object TeacherFeedScreen: Screen("teacherfeed_screen")
+    object ViewQuestionScreen: Screen("viewquestion_screen")
 }

@@ -48,6 +48,10 @@ fun Navigation(
             val questionId = it.arguments?.getString("questionId")
             ViewQuestionScreen(navController, questionId ?: "")
         }
-
+        composable(
+            route = Screen.VoiceSessionScreen.route
+        ) {
+            VoiceSessionScreen(navController)
+        }
     }
 }

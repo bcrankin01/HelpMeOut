@@ -51,7 +51,10 @@ fun TeacherFeedScreen() {
                 CustomCard(
                     imageRes = R.drawable.ic_launcher_foreground,
                     questionHeader = question.header.toString(),
-                    questionBody = question.body.toString()
+                    questionBody = question.body.toString(),
+                    onClick = {
+                        /*TODO*/
+                    }
                 )
             }
         }

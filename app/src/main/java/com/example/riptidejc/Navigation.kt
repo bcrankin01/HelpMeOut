@@ -2,9 +2,11 @@ package com.example.riptidejc
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 @Composable
 fun Navigation(
@@ -39,5 +41,13 @@ fun Navigation(
         ) {
             TeacherFeedScreen()
         }
+        composable(
+            route = "${Screen.ViewQuestionScreen.route}/{questionId}",
+            arguments = listOf(navArgument("questionId") { type = NavType.StringType })
+        ) {
+            val questionId = it.arguments?.getString("questionId")
+            ViewQuestionScreen(navController, questionId ?: "")
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.riptidejc
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.ktx.Firebase
 
@@ -45,11 +47,11 @@ fun MyQuestionsScreen(
         )
 
         var questions by remember {
-            mutableStateOf(listOf<Question>())
+            mutableStateOf(listOf<Pair<String,Question>>())
         }
 
         firebaseManager.getQuestionsByUser(object: FirebaseManager.GetQuestionsByUserListener {
-            override fun onSuccess(questionList: List<Question>) {
+            override fun onSuccess(questionList: List<Pair<String,Question>>) {
                 questions = questionList
             }
 
@@ -64,8 +66,12 @@ fun MyQuestionsScreen(
             items(questions) { question ->
                 CustomCard(
                     imageRes = R.drawable.ic_launcher_foreground,
-                    questionHeader = question.header.toString(),
-                    questionBody = question.body.toString()
+                    questionHeader = question.second.header.toString(),
+                    questionBody = question.second.body.toString(),
+                    onClick = {
+                        Log.d("QuestionOnClick", "Hit: ${question.second.header.toString()}")
+                        navController.navigate(Screen.ViewQuestionScreen.route + "/${question.first}")
+                    }
                 )
             }
         }
@@ -84,7 +90,11 @@ fun MyQuestionsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomCard(imageRes: Int, questionHeader: String, questionBody: String) {
+fun CustomCard(imageRes: Int,
+               questionHeader: String,
+               questionBody: String,
+               onClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -93,6 +103,7 @@ fun CustomCard(imageRes: Int, questionHeader: String, questionBody: String) {
             defaultElevation = 10.dp
         ),
         shape = RoundedCornerShape(16.dp),
+        onClick = onClick
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

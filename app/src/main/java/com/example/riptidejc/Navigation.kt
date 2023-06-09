@@ -32,7 +32,7 @@ fun Navigation(
         composable(
             route = Screen.NewQuestionScreen.route
         ) {
-            NewQuestionScreen()
+            NewQuestionScreen(navController)
         }
         composable(
             route = Screen.TeacherFeedScreen.route

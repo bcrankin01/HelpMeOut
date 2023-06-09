@@ -68,7 +68,7 @@ fun ViewQuestionScreen(
         ) {
             if (isMyQuestion) {
                 Button(
-                    enabled = false,
+                    enabled = (theQuestion?.complete == "Pending User Acceptance"),
                     onClick = {
 
                     }
